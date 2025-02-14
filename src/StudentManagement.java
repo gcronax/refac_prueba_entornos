@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class StudentManagement {
@@ -14,38 +12,38 @@ public class StudentManagement {
 
             System.out.println(student);
 
-            int totalGrades = 0;
+            int grados_totales = 0;
             for (int i:student.grades){
-                totalGrades += i;
+                grados_totales += i;
             }
 
-            double average = totalGrades / (double) student.grades.length;
-            System.out.println("Nota media: " + average );
+            double average = grados_totales / (double) student.grades.length;
+            System.out.println("Nota media: " + String.format("%.2f",average) );
 
-            sout_estado(average);
+            imprimirEstado(average);
 
             System.out.println("========================");
         }
 
         // Cálculo de la nota media general
 
-        System.out.println("Nota media general del grupo: " + Math.round(getGeneralAverage(students)));
+        System.out.println("Nota media general del grupo: " + String.format("%.2f", obtenerMedia(students)) );
     }
 
-    private static double getGeneralAverage(List<Student> students) {
-        int totalSum = 0;
-        int totalGradesCount = 0;
+    private static double obtenerMedia(List<Student> students) {
+        int suma_total = 0;
+        int contador_grados_totales = 0;
         for (Student student : students) {
             for (int j = 0; j < student.grades.length; j++) {
-                totalSum += student.grades[j];
-                totalGradesCount++;
+                suma_total += student.grades[j];
+                contador_grados_totales++;
             }
         }
 
-        return totalSum / (double) totalGradesCount;
+        return suma_total / (double) contador_grados_totales;
     }
 
-    private static void sout_estado(double average) {
+    private static void imprimirEstado(double average) {
         if (average >= 9) {
             System.out.println("Estado: Excelente");
         } else if (average >= 7) {
@@ -66,6 +64,30 @@ class Student {
         this.name=name;
         this.age=age;
         this.grades=grades;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public int[] getGrades() {
+        return grades;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public void setGrades(int[] grades) {
+        this.grades = grades;
     }
 
     @Override
