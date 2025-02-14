@@ -1,64 +1,61 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class StudentManagement {
 
     public static void main(String[] args) {
-        List<Student> students = new ArrayList<>();
+        List<Student> students = List.of(
+                new Student("Carlos",20,new int[]{8, 9, 10}),
+                new Student("Ana", 22,new int[]{7, 6, 8}),
+                new Student("Luis", 21, new int[]{10, 10, 9}));
 
-        Student s1 = new Student("Carlos",20,new int[]{8, 9, 10});
-        students.add(s1);
+        for (Student student:students) {
 
-        Student s2 = new Student();
-        s2.name = "Ana";
-        s2.age = 22;
-        s2.grades = new int[]{7, 6, 8};
-        students.add(s2);
-
-        Student s3 = new Student();
-        s3.name = "Luis";
-        s3.age = 21;
-        s3.grades = new int[]{10, 10, 9};
-        students.add(s3);
-
-        for (int i = 0; i < students.size(); i++) {
-            Student student = students.get(i);
-            System.out.println("Nombre: " + student.name);
-            System.out.println("Edad: " + student.age);
+            System.out.println(student);
 
             int totalGrades = 0;
-            for (int j = 0; j < student.grades.length; j++) {
-                totalGrades += student.grades[j];
+            for (int i:student.grades){
+                totalGrades += i;
             }
 
             double average = totalGrades / (double) student.grades.length;
-            System.out.println("Nota media: " + average);
+            System.out.println("Nota media: " + average );
 
-            if (average >= 9) {
-                System.out.println("Estado: Excelente");
-            } else if (average >= 7) {
-                System.out.println("Estado: Bueno");
-            } else {
-                System.out.println("Estado: Insuficiente");
-            }
+            sout_estado(average);
 
             System.out.println("========================");
         }
 
         // Cálculo de la nota media general
+
+        System.out.println("Nota media general del grupo: " + Math.round(getGeneralAverage(students)));
+    }
+
+    private static double getGeneralAverage(List<Student> students) {
         int totalSum = 0;
         int totalGradesCount = 0;
-        for (int i = 0; i < students.size(); i++) {
-            Student student = students.get(i);
+        for (Student student : students) {
             for (int j = 0; j < student.grades.length; j++) {
                 totalSum += student.grades[j];
                 totalGradesCount++;
             }
         }
 
-        double generalAverage = totalSum / (double) totalGradesCount;
-        System.out.println("Nota media general del grupo: " + generalAverage);
+        return totalSum / (double) totalGradesCount;
     }
+
+    private static void sout_estado(double average) {
+        if (average >= 9) {
+            System.out.println("Estado: Excelente");
+        } else if (average >= 7) {
+            System.out.println("Estado: Bueno");
+        } else {
+            System.out.println("Estado: Insuficiente");
+        }
+    }
+
+
 }
 
 class Student {
@@ -69,5 +66,10 @@ class Student {
         this.name=name;
         this.age=age;
         this.grades=grades;
+    }
+
+    @Override
+    public String toString() {
+        return "Nombre: " + name + '\n' + "Edad: " + age ;
     }
 }
